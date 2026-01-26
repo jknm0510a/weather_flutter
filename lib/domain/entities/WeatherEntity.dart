@@ -20,5 +20,5 @@ class WeatherEntity extends Equatable{
     condition,
     lastUpdated,
   ];
-  
+
 }
