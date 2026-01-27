@@ -1,4 +1,4 @@
-import '../repositories/WeatherRepository.dart';
+import '../repositories/weather_repository.dart';
 
 abstract class BaseUseCase<T> {
   final WeatherRepository weatherRepository;

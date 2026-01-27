@@ -1,6 +1,6 @@
-import 'package:weather_flutter/domain/usecases/BaseUseCase.dart';
+import 'package:weather_flutter/domain/usecases/base_usecase.dart';
 
-import '../entities/WeatherEntity.dart';
+import '../entities/weather_entity.dart';
 
 class GetWeatherForCurrentLocationUseCase extends BaseUseCase {
   const GetWeatherForCurrentLocationUseCase(

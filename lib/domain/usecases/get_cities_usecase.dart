@@ -1,5 +1,5 @@
-import '../entities/CityEntity.dart';
-import 'BaseUseCase.dart';
+import '../entities/city_entity.dart';
+import 'base_usecase.dart';
 
 class GetCitiesUseCase extends BaseUseCase<List<CityEntity>> {
 
