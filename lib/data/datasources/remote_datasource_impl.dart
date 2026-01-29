@@ -12,13 +12,14 @@ class RemoteDatasourceImpl implements RemoteDataSource{
 
   final String _apiKey = '43efdc20b2db4cb2bc453308252910';
   final String _weatherApiBaseUrl = 'http://api.weatherapi.com/v1';
+  final String _cityApiBaseUrl = 'https://restcountries.com/v3.1/all';
 
   const RemoteDatasourceImpl({required this.client});
 
   @override
   Future<List<CityModel>> fetchCitiesFromApi() async {
     final response = await client.get(
-      Uri.parse('https://restcountries.com/v3.1/all'),
+      Uri.parse(_cityApiBaseUrl),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
@@ -30,7 +31,7 @@ class RemoteDatasourceImpl implements RemoteDataSource{
       throw ServerException(
         message: 'Failed to fetch cities from API.',
         statusCode: response.statusCode,
-        url: 'https://restcountries.com/v3.1/all'
+        url: _cityApiBaseUrl
       );
     }
   }
