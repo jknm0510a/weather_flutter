@@ -12,7 +12,7 @@ class RemoteDatasourceImpl implements RemoteDataSource{
 
   final String _apiKey = '43efdc20b2db4cb2bc453308252910';
   final String _weatherApiBaseUrl = 'http://api.weatherapi.com/v1';
-  final String _cityApiBaseUrl = 'https://restcountries.com/v3.1/all';
+  final String _cityApiBaseUrl = 'https://restcountries.com/v3.1/all?fields=name,capitalInfo,cca2,capital';
 
   const RemoteDatasourceImpl({required this.client});
 

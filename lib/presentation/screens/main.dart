@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_flutter/domain/usecases/get_cities_usecase.dart';
+import 'package:weather_flutter/domain/usecases/get_weather_for_city_usecase.dart';
+import 'package:weather_flutter/domain/usecases/get_weather_for_current_location_usecase.dart';
 import 'package:weather_flutter/injection_container.dart' as di;
+import 'package:weather_flutter/presentation/providers/weather_provider.dart';
+import 'package:weather_flutter/presentation/screens/city_list_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider(
+        create: (context) => WeatherProvider(
+            getWeatherForCityUseCase: di.sl<GetWeatherForCityUseCase>(),
+            getCitiesUseCase: di.sl<GetCitiesUseCase>(),
+            getWeatherForCurrentLocationUseCase: di.sl<GetWeatherForCurrentLocationUseCase>()
+        ),
+        child:  const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,11 +28,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '天氣 App',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Weather'),
+      home: const CityListScreen(),
     );
   }
 }
