@@ -6,6 +6,7 @@ import 'package:weather_flutter/domain/usecases/get_weather_for_current_location
 import 'package:weather_flutter/injection_container.dart' as di;
 import 'package:weather_flutter/presentation/providers/weather_provider.dart';
 import 'package:weather_flutter/presentation/screens/city_list_screen.dart';
+import 'package:weather_flutter/presentation/screens/weather_display_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CityListScreen(),
+      home: const WeatherDisplayScreen(),
     );
   }
 }
