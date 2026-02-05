@@ -3,11 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:weather_flutter/data/datasources/remote_datasource.dart' as _i3;
-import 'package:weather_flutter/data/models/city_model.dart' as _i5;
+import 'package:weather_flutter/data/datasources/remote_datasource.dart' as _i4;
+import 'package:weather_flutter/data/models/city_model.dart' as _i6;
+import 'package:weather_flutter/data/models/forecast_weather_model.dart' as _i3;
 import 'package:weather_flutter/data/models/weather_model.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -30,34 +31,64 @@ class _FakeWeatherModel_0 extends _i1.SmartFake implements _i2.WeatherModel {
     : super(parent, parentInvocation);
 }
 
+class _FakeForecastWeatherModel_1 extends _i1.SmartFake
+    implements _i3.ForecastWeatherModel {
+  _FakeForecastWeatherModel_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [RemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoteDataSource extends _i1.Mock implements _i3.RemoteDataSource {
+class MockRemoteDataSource extends _i1.Mock implements _i4.RemoteDataSource {
   MockRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.WeatherModel> fetchWeatherFromApi(String? query) =>
+  _i5.Future<_i2.WeatherModel> fetchWeatherFromApi(String? query) =>
       (super.noSuchMethod(
             Invocation.method(#fetchWeatherFromApi, [query]),
-            returnValue: _i4.Future<_i2.WeatherModel>.value(
+            returnValue: _i5.Future<_i2.WeatherModel>.value(
               _FakeWeatherModel_0(
                 this,
                 Invocation.method(#fetchWeatherFromApi, [query]),
               ),
             ),
           )
-          as _i4.Future<_i2.WeatherModel>);
+          as _i5.Future<_i2.WeatherModel>);
 
   @override
-  _i4.Future<List<_i5.CityModel>> fetchCitiesFromApi() =>
+  _i5.Future<List<_i6.CityModel>> fetchCitiesFromApi() =>
       (super.noSuchMethod(
             Invocation.method(#fetchCitiesFromApi, []),
-            returnValue: _i4.Future<List<_i5.CityModel>>.value(
-              <_i5.CityModel>[],
+            returnValue: _i5.Future<List<_i6.CityModel>>.value(
+              <_i6.CityModel>[],
             ),
           )
-          as _i4.Future<List<_i5.CityModel>>);
+          as _i5.Future<List<_i6.CityModel>>);
+
+  @override
+  _i5.Future<_i3.ForecastWeatherModel> fetchForecastWeatherFromApi(
+    String? query, {
+    int? days,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(
+              #fetchForecastWeatherFromApi,
+              [query],
+              {#days: days},
+            ),
+            returnValue: _i5.Future<_i3.ForecastWeatherModel>.value(
+              _FakeForecastWeatherModel_1(
+                this,
+                Invocation.method(
+                  #fetchForecastWeatherFromApi,
+                  [query],
+                  {#days: days},
+                ),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.ForecastWeatherModel>);
 }

@@ -50,7 +50,7 @@ class _CityListScreenState extends State<CityListScreen> {
   void _filterCities() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      // 根據搜尋文字過濾城市列表
+      // 根據搜尋文字過濾城市列表ㄊ
       _filteredCities = _cities
           .where((city) => city.name.toLowerCase().contains(query))
           .toList();
@@ -58,13 +58,7 @@ class _CityListScreenState extends State<CityListScreen> {
   }
 
   void _navigateToWeatherDisplay(String cityName) {
-    // TODO: 在這裡實作導航到 WeatherDisplayScreen 的邏輯
-    // 目前，您可以先顯示一個 Snackbar 作為提示
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('正在導航到 $cityName 的天氣資訊')),
-    );
-    // 未來您可能會這樣導航：
-    // Navigator.pushNamed(context, WeatherDisplayScreen.routeName, arguments: cityName);
+    Navigator.pop(context, cityName);
   }
 
 

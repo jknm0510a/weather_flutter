@@ -6,6 +6,7 @@ import 'package:weather_flutter/data/models/weather_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/errors/exceptions.dart';
+import '../models/forecast_weather_model.dart';
 
 class RemoteDatasourceImpl implements RemoteDataSource{
   final http.Client client;
@@ -54,5 +55,27 @@ class RemoteDatasourceImpl implements RemoteDataSource{
       );
     }
   }
+
+  @override
+  Future<ForecastWeatherModel> fetchForecastWeatherFromApi(String query, {int days = 7}) async {
+    final uri = Uri.parse('$_weatherApiBaseUrl/forecast.json?key=$_apiKey&q=$query&days=$days');
+    final response = await client.get(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = jsonDecode(response.body);
+      // 使用我們新建立的 ForecastWeatherModel.fromJson 來解析
+      return ForecastWeatherModel.fromJson(json);
+    } else {
+      throw ServerException(
+          message: 'Failed to fetch forecast weather from API.',
+          statusCode: response.statusCode,
+          url: uri.toString()
+      );
+    }
+  }
+
 
 }

@@ -1,3 +1,4 @@
+import 'package:weather_flutter/domain/entities/forecast_weather_entity.dart';
 import 'package:weather_flutter/domain/usecases/base_usecase.dart';
 
 import '../entities/weather_entity.dart';
@@ -11,7 +12,7 @@ class GetWeatherForCurrentLocationUseCase extends BaseUseCase {
     required this.locationRepository
   }): super(weatherRepository);
 
-  Future<WeatherEntity> execute() async {
+  Future<ForecastWeatherEntity> execute() async {
     final currentLocation = await locationRepository.getCurrentLocation();
     final coordinateString = '${currentLocation.latitude},${currentLocation.longitude}';
 

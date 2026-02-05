@@ -1,4 +1,5 @@
 import 'package:weather_flutter/domain/entities/city_entity.dart';
+import 'package:weather_flutter/domain/entities/forecast_weather_entity.dart';
 import 'package:weather_flutter/domain/entities/weather_entity.dart';
 import 'package:weather_flutter/domain/repositories/weather_repository.dart';
 
@@ -27,9 +28,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @override
-  Future<WeatherEntity> getWeatherForQuery(String query) async {
+  Future<ForecastWeatherEntity> getWeatherForQuery(String query) async {
     try {
-      final weatherModel = await remoteDataSource.fetchWeatherFromApi(query);
+      final weatherModel = await remoteDataSource.fetchForecastWeatherFromApi(query);
       return weatherModel.toEntity();
     } on ServerException catch (e) {
       //TODO do something with the error

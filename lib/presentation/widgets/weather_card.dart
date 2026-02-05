@@ -40,10 +40,14 @@ class WeatherCard extends StatelessWidget {
             ),
             const SizedBox(height: 10), // 間距
             // 天氣圖示的佔位符。未來您可以根據 iconCode 從網路載入圖片，或使用本地資產
-            Icon(
-              Icons.wb_sunny, // 暫時使用一個太陽圖示作為佔位符
-              size: 50,
-              color: Colors.amber,
+            Image.network(
+              iconCode, // 這裡使用傳入的 conditionIcon
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.broken_image, size: 50); // 載入失敗顯示錯誤圖示
+              },
             ),
           ],
         ),

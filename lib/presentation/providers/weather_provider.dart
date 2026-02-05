@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:weather_flutter/domain/usecases/get_weather_for_current_location_usecase.dart';
 
 import '../../domain/entities/city_entity.dart';
+import '../../domain/entities/forecast_weather_entity.dart';
 import '../../domain/entities/weather_entity.dart';
 import '../../domain/usecases/get_cities_usecase.dart';
 import '../../domain/usecases/get_weather_for_city_usecase.dart';
 
 class WeatherProvider extends ChangeNotifier {
   bool isLoading = false;
-  WeatherEntity? weatherEntity;
+  ForecastWeatherEntity? weatherEntity;
   List<CityEntity> cities = [];
   String? errorMessage;
   final GetWeatherForCityUseCase getWeatherForCityUseCase;
