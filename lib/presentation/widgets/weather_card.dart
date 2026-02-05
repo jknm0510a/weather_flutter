@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/weather_provider.dart';
+import '../screens/city_list_screen.dart';
 
 class WeatherCard extends StatelessWidget {
   final String cityName;
   final double temperature; 
   final String weatherCondition; 
   final String iconCode;
+  final double windSpeed;
+  final int humidity;
+
 
   const WeatherCard({
     Key? key,
@@ -13,45 +20,100 @@ class WeatherCard extends StatelessWidget {
     required this.temperature,
     required this.weatherCondition,
     required this.iconCode,
+    required this.windSpeed,
+    required this.humidity,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(16.0), // 卡片外邊距
-      child: Padding(
-        padding: const EdgeInsets.all(16.0), // 卡片內邊距
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // 讓 Column 內容根據子元件大小自動調整
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
             Text(
               cityName,
-              style: Theme.of(context).textTheme.headlineMedium, // 顯示城市名稱，字體較大
+              style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold), // 顯示城市名稱，字體較大
             ),
-            const SizedBox(height: 10), // 間距
-            Text(
-              '${temperature.round()}°C', // 顯示溫度，取整數並加上°C
-              style: Theme.of(context).textTheme.displayLarge, // 顯示溫度，字體非常大
-            ),
-            const SizedBox(height: 10), // 間距
-            Text(
-              weatherCondition, // 顯示天氣狀況文字
-              style: Theme.of(context).textTheme.headlineSmall, // 字體稍大
-            ),
-            const SizedBox(height: 10), // 間距
-            // 天氣圖示的佔位符。未來您可以根據 iconCode 從網路載入圖片，或使用本地資產
-            Image.network(
-              iconCode, // 這裡使用傳入的 conditionIcon
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.broken_image, size: 50); // 載入失敗顯示錯誤圖示
+            IconButton(
+              onPressed: () {
+
               },
+              icon: const Icon(Icons.refresh)
             ),
+            Spacer(),
+            IconButton(
+              icon: const Icon(Icons.location_city),
+              onPressed: () => _navigateToCityList(context),
+            ),
+
           ],
         ),
-      ),
+        const SizedBox(height: 5),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${temperature}', // 顯示溫度，取整數並加上°C
+              style: Theme.of(context).textTheme.displayLarge, // 顯示溫度，字體非常大
+            ),
+            Text(
+              '°C   $weatherCondition',
+              style: Theme.of(context).textTheme.headlineSmall, // 顯示溫度'
+            )
+          ],
+        ),
+        Card(
+          child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Wind Speed',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        '${windSpeed} kph',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    children: [
+                      Text(
+                        'Humidity',
+                        style: const TextStyle(fontSize: 18),
+
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        '${humidity}%',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ]
+              )
+          )
+        )
+      ],
     );
+  }
+
+  void _navigateToCityList(BuildContext context) async {
+    // 使用 await 來等待 CityListScreen 返回結果
+    final selectedCity = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CityListScreen()),
+    );
+
+    if (selectedCity != null && selectedCity is String) {
+      Provider.of<WeatherProvider>(context, listen: false).fetchWeather(selectedCity);
+    }
   }
 }

@@ -36,7 +36,7 @@ void main() {
     final result = await repository.getWeatherForQuery(testQuery);
     expect(result.cityName, testWeatherEntity.cityName);
     expect(result.temperatureCelsius, testWeatherEntity.temperatureCelsius);
-    expect(result.condition, testWeatherEntity.condition);
+    expect(result.conditionIcon, testWeatherEntity.condition);
     // 對於 lastUpdated，我們不檢查它的精確值，但可以做一個合理的驗證，例如確認它是一個最近的時間點
     expect(result.lastUpdated, isA<DateTime>());
     expect(result.lastUpdated.isAfter(DateTime.now().subtract(const Duration(seconds: 1))), isTrue);
